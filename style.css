@@ -1,4 +1,10 @@
+* {
+    color: white;
+}
 
+body {
+    background-color: black;
+}
 
 #output {
     grid-area: output;
@@ -81,7 +87,7 @@
         "zero zero dot equals";
         
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-radius: 10px;
 }
 

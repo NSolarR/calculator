@@ -10,25 +10,27 @@
     <body>
         <!--Needs 18 buttons-->
         <div class="calculator-base">
-            <p id="output">Default Text</p>
-            <button id="clear">Clear</button>
-            <button id="negPos">-/+</button>
-            <button id="divide" class="operator">/</button>
-            <button id="seven" class="number">7</button>
-            <button id="eight" class="number">8</button>
-            <button id="nine" class="number">9</button>
-            <button id="multiply" class="operator">x</button>
-            <button id="four" class="number">4</button>
-            <button id="five" class="number">5</button>
-            <button id="six" class="number">6</button>
-            <button id="subtract" class="operator">-</button>
-            <button id="one" class="number">1</button>
-            <button id="two" class="number">2</button>
-            <button id="three" class="number">3</button>
-            <button id="add" class="operator">+</button>
-            <button id="zero" class="number">0</button>
+            <p id="output">0</p>
+            <button id="clear" class="functional" type="button" onclick="clearAll()">Clear</button>
+            <button id="negPos" class="functional" type="button" onclick="negPos()">-/+</button>
+            <button id="divide" class="operator" type="button" onclick="getOperator('/')">/</button>
+            <button id="seven" class="number" type="button" onclick="setCurrentValue(7)">7</button>
+            <button id="eight" class="number" type="button" onclick="setCurrentValue(8)">8</button>
+            <button id="nine" class="number" type="button" onclick="setCurrentValue(9)">9</button>
+            <button id="multiply" class="operator" type="button" onclick="getOperator('x')">x</button>
+            <button id="four" class="number" type="button" onclick="setCurrentValue(4)">4</button>
+            <button id="five" class="number" type="button" onclick="setCurrentValue(5)">5</button>
+            <button id="six" class="number" type="button" onclick="setCurrentValue(6)">6</button>
+            <button id="subtract" class="operator" type="button" onclick="getOperator('-')">-</button>
+            <button id="one" class="number" type="button" onclick="setCurrentValue(1)">1</button>
+            <button id="two" class="number" type="button" onclick="setCurrentValue(2)">2</button>
+            <button id="three" class="number" type="button" onclick="setCurrentValue(3)">3</button>
+            <button id="add" class="operator" type="button" onclick="getOperator('+')">+</button>
+            <button id="zero" class="number" type="button" onclick="setCurrentValue(0)">0</button>
             <button id="dot" class="number">.</button>
-            <button id="equals" class="operator">=</button>
+            <button id="equals" class="operator" type="button" onclick="equals()">=</button>
         </div>
     </body>
+
+    <script src="script.js"></script>
 </html>
