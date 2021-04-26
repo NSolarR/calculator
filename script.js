@@ -41,11 +41,13 @@ function negPos() {
         if (firstValue >= 1)          {firstValue = firstValue * -1}
         else if (firstValue <= -1)    {firstValue = Math.abs(firstValue)}
         else                          {firstValue = firstValue}
+        
         textField.textContent = `${firstValue}`;
     } else if (firstValue != undefined && isOperatorSelected && secondValue != undefined){
-        if (secondValue >= 1)          {secondValue = secondValue * -1}
-        else if (secondValue <= -1)    {secondValue = Math.abs(secondValue)}
+        if (secondValue >= 1)         {secondValue = secondValue * -1}
+        else if (secondValue <= -1)   {secondValue = Math.abs(secondValue)}
         else                          {secondValue = secondValue}
+
         textField.textContent = `${firstValue} ${currentOperator} ${secondValue}`;
     } else {
         return;
@@ -80,6 +82,7 @@ function multiply(x, y){
 function operate(x, y){
     let first = x;
     let second = y;
+    
     if (currentOperator === "x") {
         return multiply(first, second);
     } else if (currentOperator === "+") {
@@ -92,6 +95,16 @@ function operate(x, y){
 }
 
 function equals() {
+    if (secondValue === 0 && currentOperator === "/") {
+        firstValue = undefined;
+        currentOperator = "";
+        isOperatorSelected = false;
+        secondValue = undefined;
+
+        textField.textContent = `You can't divide by 0`;
+        return;
+    }
+
     if(firstValue != undefined && isOperatorSelected && secondValue != undefined)
     {
         firstValue = operate (parseInt(firstValue), parseInt(secondValue));
