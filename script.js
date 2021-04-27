@@ -57,9 +57,9 @@ function getOperator(x) {
         operatorBeforeEquals++;
         secondOperator = `${x}`;
         equals();
-    } else if (firstValue != undefined && isOperatorSelected && (secondValue === undefined || '')) {
+    } else if (firstValue != undefined && firstValue != "" && isOperatorSelected && (secondValue === undefined || '')) {
         return;
-    } else if (firstValue != undefined && !isOperatorSelected){
+    } else if (firstValue != undefined && firstValue != "" && !isOperatorSelected){
         isOperatorSelected = true;
         currentOperator = `${x}`;
         textField.textContent = `${firstValue} ${currentOperator}`;
@@ -114,6 +114,22 @@ function multiply(x, y){
 }
 
 function backspace(){
+    if (String(firstValue).length === 2 && String(firstValue).includes('-')) {
+        firstValue = String(firstValue).slice(0, -2);
+        textField.textContent = `${firstValue}`;
+        if(firstValue === ''){
+            textField.textContent = `0`;
+        }
+        return;
+    }
+    if (String(secondValue).length === 2 && String(secondValue).includes('-')) {
+        secondValue = String(secondValue).slice(0, -2);
+        textField.textContent = `${firstValue} ${currentOperator}`;
+        if(secondValue === '') {
+            operatorBeforeEquals = 0;
+        }
+        return;
+    }
     if(firstValue != undefined && !isOperatorSelected && secondValue === undefined) {
         firstValue = String(firstValue).slice(0, -1);
         textField.textContent = `${firstValue}`;
