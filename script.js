@@ -2,7 +2,13 @@ let firstValue;
 let isOperatorSelected;
 let secondValue;
 let currentOperator;
+let secondOperator;
+let operatorBeforeEquals;
 
+if (operatorBeforeEquals === undefined)
+{
+    operatorBeforeEquals = 0;
+}
 if (isOperatorSelected === undefined)
 {
     isOperatorSelected = false;
@@ -11,7 +17,9 @@ if (isOperatorSelected === undefined)
 //Get html elements
 const textField = document.querySelector('p');
 
-//Calc functions
+//Flow: firstValue -> currentOperator -> secondValue -> equals()
+
+//Sets value of currently selected number to whatever button input you press
 function setCurrentValue(x) {
     if (firstValue === undefined && !isOperatorSelected && secondValue === undefined) {
         firstValue = x;
@@ -29,13 +37,21 @@ function setCurrentValue(x) {
 }
 
 function getOperator(x) {
-    if (firstValue != undefined && !isOperatorSelected){
+    //First check if all variables are used, if so run operate()
+    if (firstValue != undefined && isOperatorSelected && secondValue != undefined) {
+        operatorBeforeEquals++;
+        secondOperator = `${x}`;
+        equals();
+    }
+    //Otherwise if only firstValue is used set the selectedOperator
+    else if (firstValue != undefined && !isOperatorSelected){
         isOperatorSelected = true;
         currentOperator = x;
         textField.textContent = `${firstValue}` + `${currentOperator}`;
     }
 }
 
+//Convert currently selected number to negative or positive
 function negPos() {
     if (firstValue != undefined && !isOperatorSelected){
         if (firstValue >= 1)          {firstValue = firstValue * -1}
@@ -54,6 +70,7 @@ function negPos() {
     }
 }
 
+//Clears all values and resets
 function clearAll() {
     firstValue = undefined;
     secondValue = undefined;
@@ -62,6 +79,7 @@ function clearAll() {
     textField.textContent = "0";
 }
 
+//Operator functions
 function add(x, y){
     return x + y;
 }
@@ -94,7 +112,9 @@ function operate(x, y){
     }
 }
 
+//Run when = buttons is hit
 function equals() {
+    //Check if attempting to divide by 0
     if (secondValue === 0 && currentOperator === "/") {
         firstValue = undefined;
         currentOperator = "";
@@ -104,8 +124,21 @@ function equals() {
         textField.textContent = `You can't divide by 0`;
         return;
     }
+    //Check if selecting another operator BEFORE hitting the = button
+    else if (operatorBeforeEquals >= 1)
+    {
+        firstValue = operate (parseInt(firstValue), parseInt(secondValue));
 
-    if(firstValue != undefined && isOperatorSelected && secondValue != undefined)
+        secondValue = undefined;
+        currentOperator = `${secondOperator}`;
+        secondOperator = ``;
+        isOperatorSelected = true;
+        operatorBeforeEquals = 0;
+
+        textField.textContent = `${firstValue}` + `${currentOperator}`;
+    }
+    //Otherwise run calculation normally
+    else if(firstValue != undefined && isOperatorSelected && secondValue != undefined)
     {
         firstValue = operate (parseInt(firstValue), parseInt(secondValue));
 
@@ -114,6 +147,9 @@ function equals() {
         isOperatorSelected = false;
 
         textField.textContent = `${firstValue}`;
-    } else { return; }
+    } 
+    else{
+        return; 
+    }
 }
 
