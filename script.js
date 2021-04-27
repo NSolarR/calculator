@@ -183,7 +183,7 @@ function equals() {
         isOperatorSelected = true;
         operatorBeforeEquals = 0;
 
-        textField.textContent = `${firstValue}` + `${currentOperator}`;
+        textField.textContent = `${firstValue} ${currentOperator}`;
     }
     //Otherwise run calculation normally
     else if(firstValue != undefined && firstValue != '' && isOperatorSelected && secondValue != undefined && secondValue != '')
