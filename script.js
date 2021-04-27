@@ -1,9 +1,12 @@
 let firstValue;
-let isOperatorSelected;
 let secondValue;
+
+let isOperatorSelected;
 let currentOperator;
 let secondOperator;
 let operatorBeforeEquals;
+
+const dot = ".";
 
 if (operatorBeforeEquals === undefined)
 {
@@ -21,7 +24,11 @@ const textField = document.querySelector('p');
 
 //Sets value of currently selected number to whatever button input you press
 function setCurrentValue(x) {
-    if (firstValue === undefined && !isOperatorSelected && secondValue === undefined) {
+    if (String(firstValue).includes(dot) && !isOperatorSelected && secondValue === undefined && x === dot){
+        return;
+    } else if (firstValue != undefined && isOperatorSelected && String(secondValue).includes(dot) && x === dot) {
+        return;
+    } else if (firstValue === undefined && !isOperatorSelected && secondValue === undefined) {
         firstValue = x;
         textField.textContent = `${firstValue}`;
     } else if (firstValue != undefined && !isOperatorSelected && secondValue === undefined) {
@@ -127,7 +134,13 @@ function equals() {
     //Check if selecting another operator BEFORE hitting the = button
     else if (operatorBeforeEquals >= 1)
     {
-        firstValue = operate (parseInt(firstValue), parseInt(secondValue));
+        //First run operation, then round decimals
+        //After, convert to float to remove unnecesary trailing 0s
+        //Then convert back to string so we can concatenate in the calculator
+        firstValue = operate (parseFloat(firstValue), parseFloat(secondValue));
+        firstValue = firstValue.toFixed(2);
+        firstValue = parseFloat(firstValue);
+        firstValue = firstValue.toString();
 
         secondValue = undefined;
         currentOperator = `${secondOperator}`;
@@ -140,7 +153,13 @@ function equals() {
     //Otherwise run calculation normally
     else if(firstValue != undefined && isOperatorSelected && secondValue != undefined)
     {
-        firstValue = operate (parseInt(firstValue), parseInt(secondValue));
+        //First run operation, then round decimals
+        //After, convert to float to remove unnecesary trailing 0s
+        //Then convert back to string so we can concatenate in the calculator
+        firstValue = operate (parseFloat(firstValue), parseFloat(secondValue));
+        firstValue = firstValue.toFixed(2);
+        firstValue = parseFloat(firstValue);
+        firstValue = firstValue.toString();
 
         secondValue = undefined;
         currentOperator = "";
