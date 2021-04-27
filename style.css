@@ -14,6 +14,9 @@ body {
 #clear {
     grid-area: clear;
 }
+#backspace {
+    grid-area: backspace;
+}
 #negPos {
     grid-area: negPos;
 }
@@ -81,7 +84,7 @@ body {
 
     grid-template-areas: 
         "output output output output"
-        "clear clear negPos divide"
+        "clear backspace negPos divide"
         "seven eight nine multiply"
         "four five six subtract"
         "one two three add"

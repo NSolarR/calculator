@@ -103,6 +103,24 @@ function multiply(x, y){
     return x * y;
 }
 
+function backspace(){
+    if(firstValue != undefined && !isOperatorSelected && secondValue === undefined) {
+        firstValue = String(firstValue).slice(0, -1);
+        textField.textContent = `${firstValue}`;
+        if(firstValue === ''){
+            textField.textContent = `0`;
+        }
+    } else if (firstValue != undefined && isOperatorSelected && (secondValue === undefined || secondValue === '')) {
+        currentOperator = '';
+        secondValue = undefined;
+        isOperatorSelected = false;
+        textField.textContent = `${firstValue}`;
+    } else if (firstValue != undefined && isOperatorSelected && secondValue != undefined) {
+        secondValue = String(secondValue).slice(0, -1);
+        textField.textContent = `${firstValue} ${currentOperator} ${secondValue}`;
+    }
+}
+
 //Perform calculation based off selected values and operator
 function operate(x, y){
     let first = x;
