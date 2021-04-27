@@ -16,6 +16,12 @@ if (isOperatorSelected === undefined)
 {
     isOperatorSelected = false;
 }
+if (currentOperator === undefined){
+    currentOperator = "";
+}
+if (secondOperator === undefined){
+    secondOperator = "";
+}
 
 //Get html elements
 const textField = document.querySelector('p');
@@ -44,17 +50,19 @@ function setCurrentValue(x) {
 }
 
 function getOperator(x) {
-    //First check if all variables are used, if so run operate()
-    if (firstValue != undefined && isOperatorSelected && secondValue != undefined) {
+    //First check if all variables are used, if so run equals()
+    if (firstValue != undefined && firstValue != "" && isOperatorSelected && secondValue != undefined && secondValue != "" && 
+    secondOperator === '' && operatorBeforeEquals === 0) {
+
         operatorBeforeEquals++;
         secondOperator = `${x}`;
         equals();
-    }
-    //Otherwise if only firstValue is used set the selectedOperator
-    else if (firstValue != undefined && !isOperatorSelected){
+    } else if (firstValue != undefined && isOperatorSelected && (secondValue === undefined || '')) {
+        return;
+    } else if (firstValue != undefined && !isOperatorSelected){
         isOperatorSelected = true;
-        currentOperator = x;
-        textField.textContent = `${firstValue}` + `${currentOperator}`;
+        currentOperator = `${x}`;
+        textField.textContent = `${firstValue} ${currentOperator}`;
     }
 }
 
@@ -82,7 +90,9 @@ function clearAll() {
     firstValue = undefined;
     secondValue = undefined;
     isOperatorSelected = false;
-    currentOperator = "";
+    currentOperator = '';
+    secondOperator = '';
+    operatorBeforeEquals = 0;
     textField.textContent = "0";
 }
 
@@ -114,10 +124,16 @@ function backspace(){
         currentOperator = '';
         secondValue = undefined;
         isOperatorSelected = false;
+        operatorBeforeEquals = 0;
+        secondOperator = '';
+
         textField.textContent = `${firstValue}`;
     } else if (firstValue != undefined && isOperatorSelected && secondValue != undefined) {
         secondValue = String(secondValue).slice(0, -1);
         textField.textContent = `${firstValue} ${currentOperator} ${secondValue}`;
+        if(secondValue === '') {
+            operatorBeforeEquals = 0;
+        }
     }
 }
 
@@ -139,6 +155,7 @@ function operate(x, y){
 
 //Run when = buttons is hit
 function equals() {
+
     //Check if attempting to divide by 0
     if (secondValue === 0 && currentOperator === "/") {
         firstValue = undefined;
@@ -169,7 +186,7 @@ function equals() {
         textField.textContent = `${firstValue}` + `${currentOperator}`;
     }
     //Otherwise run calculation normally
-    else if(firstValue != undefined && isOperatorSelected && secondValue != undefined)
+    else if(firstValue != undefined && firstValue != '' && isOperatorSelected && secondValue != undefined && secondValue != '')
     {
         //First run operation, then round decimals
         //After, convert to float to remove unnecesary trailing 0s
@@ -188,5 +205,6 @@ function equals() {
     else{
         return; 
     }
+
 }
 
