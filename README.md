@@ -19,4 +19,18 @@
     visually if I use grid right.
 
 # Post project thoughts:
-    Update once finished
+    Very happy with the way this project turned out. Took
+    me a while to figure out how to implement all the logic
+    behind the calculator. Like how to store all the values
+    and then use those to perform calculations. I 
+    figured out all the logic on my own without
+    googling at all so I'm very happy with how this turned
+    out.
+
+    I also got a lot more comfortable using grid and I
+    quite like it now. It made the visuals of the calculator
+    very easy to set up.
+
+    In the future I think I'm going to try adopting a mobile
+    first attitude because it seems rough designing for mobile
+    at the end instead of the beginning.
